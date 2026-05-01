@@ -150,8 +150,9 @@
     font-weight 0.25s ease;
 }
 
-.cart-progress-bar__checkpoint.is-active:nth-child(3) .cart-progress-bar__label {
-    margin-right: 3.5rem;
+.cart-progress-bar__checkpoint:nth-child(3) .cart-progress-bar__label {
+    margin-right: 3.6rem;
+    max-width: 4.3rem;
 }
 
 .cart-progress-bar__checkpoint.is-active .cart-progress-bar__label {
