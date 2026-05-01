@@ -74,6 +74,9 @@
           </span>
         </button>
       </div>
+      {% if settings.show_free_shipping_bar %}
+        {% render 'cart-progress-bar' %}
+      {% endif %}
       <cart-drawer-items
         {% if cart == empty %}
           class=" is-empty"

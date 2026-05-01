@@ -313,6 +313,18 @@
       "login": {
         "title": "Have an account?",
         "paragraph_html": "<a href=\"{{ link }}\" class=\"link underlined-link\">Log in</a> to check out faster."
+      },
+      "progress": {
+        "free_shipping_label": "Free shipping {{ amount }}",
+        "discount_label": "20% off {{ amount }}",
+        "free_gift_label": "Free gift {{ amount }}",
+        "spend_free_shipping": "Spend {{ amount }} more to unlock free shipping",
+        "spend_discount": "Spend {{ amount }} more for 20% off",
+        "spend_gift": "Spend {{ amount }} more to unlock your free gift",
+        "free_shipping_unlocked": "Free shipping unlocked!",
+        "discount_applied": "20% off applied to your order.",
+        "gift_added": "Your free gift has been added to your cart.",
+        "bar_aria_label": "Progress toward cart rewards"
       }
     },
     "footer": {

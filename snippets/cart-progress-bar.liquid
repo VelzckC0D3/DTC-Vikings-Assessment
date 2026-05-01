@@ -1,0 +1,69 @@
+{% comment %}
+  Cart rewards progress: tier-segmented fill + dots at 33.33%, 66.66%, 100% (see README).
+{% endcomment %}
+{%- liquid
+  assign ship_d = settings.free_shipping_threshold | default: 100
+  assign disc_d = settings.free_discount_threshold | default: 150
+  assign gift_d = settings.free_gift_threshold | default: 200
+  assign ship_amt = ship_d | prepend: '$'
+  assign disc_amt = disc_d | prepend: '$'
+  assign gift_amt = gift_d | prepend: '$'
+-%}
+
+{{ 'cart-progress.css' | asset_url | stylesheet_tag }}
+<script src="{{ 'cart-progress.js' | asset_url }}" defer="defer"></script>
+<script>
+  window.cartProgressStrings = {
+    spend_free_shipping: {{ 'sections.cart.progress.spend_free_shipping' | t: amount: '@@AMOUNT@@' | json }},
+    spend_discount: {{ 'sections.cart.progress.spend_discount' | t: amount: '@@AMOUNT@@' | json }},
+    spend_gift: {{ 'sections.cart.progress.spend_gift' | t: amount: '@@AMOUNT@@' | json }},
+    free_shipping_unlocked: {{ 'sections.cart.progress.free_shipping_unlocked' | t | json }},
+    discount_applied: {{ 'sections.cart.progress.discount_applied' | t | json }},
+    gift_added: {{ 'sections.cart.progress.gift_added' | t | json }}
+  };
+</script>
+
+<div
+  class="cart-progress-bar"
+  data-free-shipping-threshold="{{ ship_d }}"
+  data-free-discount-threshold="{{ disc_d }}"
+  data-free-gift-threshold="{{ gift_d }}"
+  data-free-gift-product-id="{{ settings.free_gift_product | default: '9155472130260' }}"
+>
+  <div class="cart-progress-bar__message" id="cart-progress-message" role="status" aria-live="polite"></div>
+
+  <div class="cart-progress-bar__rail">
+    <div
+      class="cart-progress-bar__track"
+      id="cart-progress-track"
+      role="progressbar"
+      aria-valuemin="0"
+      aria-valuemax="100"
+      aria-valuenow="0"
+      aria-label="{{ 'sections.cart.progress.bar_aria_label' | t }}"
+    >
+      <div class="cart-progress-bar__fill" id="cart-progress-fill"></div>
+    </div>
+
+    <div class="cart-progress-bar__checkpoints">
+      <div class="cart-progress-bar__checkpoint" data-threshold="1">
+        <span class="cart-progress-bar__dot" aria-hidden="true"></span>
+        <p class="cart-progress-bar__label">
+          {{- 'sections.cart.progress.free_shipping_label' | t: amount: ship_amt -}}
+        </p>
+      </div>
+      <div class="cart-progress-bar__checkpoint" data-threshold="2">
+        <span class="cart-progress-bar__dot" aria-hidden="true"></span>
+        <p class="cart-progress-bar__label">
+          {{- 'sections.cart.progress.discount_label' | t: amount: disc_amt -}}
+        </p>
+      </div>
+      <div class="cart-progress-bar__checkpoint" data-threshold="3">
+        <span class="cart-progress-bar__dot" aria-hidden="true"></span>
+        <p class="cart-progress-bar__label">
+          {{- 'sections.cart.progress.free_gift_label' | t: amount: gift_amt -}}
+        </p>
+      </div>
+    </div>
+  </div>
+</div>

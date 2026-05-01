@@ -334,6 +334,21 @@
           "label": "Free shipping progress bar",
           "info": "Show a multi-checkpoint progress bar in the cart drawer"
         },
+        "free_shipping_bar_thresholds": {
+          "header": "Progress bar thresholds"
+        },
+        "free_shipping_threshold": {
+          "label": "Free shipping threshold ($)"
+        },
+        "free_discount_threshold": {
+          "label": "Free shipping + discount threshold ($)"
+        },
+        "free_gift_threshold": {
+          "label": "Free shipping + discount + free gift threshold ($)"
+        },
+        "free_gift_product": {
+          "label": "Free gift product"
+        },
         "cart_drawer": {
           "header": "Cart drawer",
           "collection": {

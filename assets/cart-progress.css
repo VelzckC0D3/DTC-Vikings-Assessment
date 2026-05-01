@@ -1,0 +1,160 @@
+/**
+ * Cart rewards progress — Dawn-style rgb(var(--triple)) pattern.
+ * Override on .cart-progress-bar: --cart-progress-fill-rgb / --cart-progress-active-rgb
+ * (comma-separated R,G,B). Defaults: gold fill #C9A84C, active #7EB87A.
+ * Use var(--color-button) for fill to match theme primary instead.
+ */
+
+.cart-progress-bar {
+  margin: 1.2rem 0 1.6rem;
+  padding: 0;
+  /* Illustrative wireframe colors as RGB triples (same shape as Dawn --color-button) */
+  --cart-progress-fill-rgb: 201, 168, 76;
+  --cart-progress-active-rgb: 126, 184, 122;
+}
+
+.cart-progress-bar__message {
+  margin: 0 0 1.2rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.35rem;
+}
+
+.cart-progress-bar__line {
+  font-size: calc(var(--font-body-scale, 1) * 1.2rem);
+  line-height: calc(1 + 0.5 / var(--font-body-scale, 1));
+  letter-spacing: 0.03rem;
+  margin: 0;
+  color: rgb(var(--color-foreground));
+}
+
+.cart-progress-bar__line--success {
+  color: rgb(var(--cart-progress-active-rgb));
+  font-weight: 500;
+}
+
+.cart-progress-bar__accent {
+  font-weight: 600;
+  color: rgb(var(--color-foreground));
+}
+
+.cart-progress-bar__line--success .cart-progress-bar__accent {
+  color: rgb(var(--cart-progress-active-rgb));
+}
+
+/* Rail: track + fill, then dots anchored to track center at 33.3% / 66.7% / 100% */
+.cart-progress-bar__rail {
+  position: relative;
+  width: 100%;
+  padding-top: 0.45rem;
+  padding-bottom: 2.85rem;
+  overflow: visible;
+}
+
+.cart-progress-bar__track {
+  position: relative;
+  z-index: 0;
+  width: 100%;
+  height: 0.45rem;
+  border-radius: var(--media-radius);
+  background-color: rgba(var(--color-foreground), 0.12);
+  overflow: hidden;
+  box-sizing: border-box;
+}
+
+.cart-progress-bar__fill {
+  position: absolute;
+  display: flex !important;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  width: 0%;
+  max-width: 100%;
+  border-radius: var(--media-radius);
+  background-color: rgb(var(--cart-progress-fill-rgb));
+  transition: width 0.35s cubic-bezier(0.33, 1, 0.68, 1);
+  z-index: 1;
+}
+
+.cart-progress-bar__checkpoints {
+  position: absolute;
+  left: 0;
+  width: 100%;
+  top: calc(0.45rem + 0.225rem);
+  height: 0;
+  margin: 0;
+  padding: 0;
+  pointer-events: none;
+}
+
+.cart-progress-bar__checkpoint {
+  position: absolute;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  gap: 0.45rem;
+  width: 34%;
+  max-width: 10rem;
+  min-width: 0;
+  transform: translateX(-50%);
+  pointer-events: auto;
+}
+
+.cart-progress-bar__checkpoint[data-threshold='1'] {
+  left: 33.333%;
+}
+
+.cart-progress-bar__checkpoint[data-threshold='2'] {
+  left: 66.666%;
+}
+
+.cart-progress-bar__checkpoint[data-threshold='3'] {
+  left: 100%;
+}
+
+.cart-progress-bar__dot {
+  display: block;
+  flex-shrink: 0;
+  width: 1rem;
+  height: 1rem;
+  margin-top: -0.5rem;
+  border-radius: 50%;
+  box-sizing: border-box;
+  background-color: rgb(var(--color-background));
+  border: 0.2rem solid rgba(var(--color-foreground), 0.22);
+  box-shadow: 0 0 0 0.2rem rgb(var(--color-background));
+  transition:
+    background-color 0.25s ease,
+    border-color 0.25s ease,
+    transform 0.25s ease;
+  z-index: 2;
+}
+
+.cart-progress-bar__checkpoint.is-active .cart-progress-bar__dot {
+  background-color: rgb(var(--cart-progress-active-rgb));
+  border-color: rgb(var(--cart-progress-active-rgb));
+  transform: scale(1.06);
+}
+
+.cart-progress-bar__label {
+  font-size: calc(var(--font-body-scale, 1) * 1rem);
+  line-height: 1.3;
+  font-weight: 500;
+  color: rgba(var(--color-foreground), 0.55);
+  margin: 0;
+  margin-top: -0.15rem;
+  max-width: 100%;
+  transition:
+    color 0.25s ease,
+    font-weight 0.25s ease;
+}
+
+.cart-progress-bar__checkpoint.is-active:nth-child(3) .cart-progress-bar__label {
+    margin-right: 3.5rem;
+}
+
+.cart-progress-bar__checkpoint.is-active .cart-progress-bar__label {
+  color: rgb(var(--cart-progress-active-rgb));
+  font-weight: 700;
+}
